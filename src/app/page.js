@@ -1,103 +1,116 @@
+"use client";
+
+import { useCart } from "@/context/CartContext";
 import Image from "next/image";
 
-export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.js
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+import { useState, useEffect } from "react";
+const Page = () => {
+    const [workshopProducts,setWorkshopProducts] = useState([])
+    const { addToCart } = useCart();
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const res = await fetch("https://opensheet.elk.sh/YOUR_SHEET_ID/workshops");
+      if (!res.ok) throw new Error("Network response was not ok");
+      const data = await res.json();
+      setWorkshopProducts(data);
+    } catch (error) {
+      console.error("Fetch failed, loading fallback data:", error);
+      // Fallback dummy data
+      setWorkshopProducts([
+        {
+          id: 1,
+          title: "Beginner Watercolor Workshop",
+          description: "Learn the basics of watercolor painting in a 2-hour live session.",
+          price: "₹799",
+          image: "/workshop1.jpg",
+        },
+        {
+          id: 2,
+          title: "Floral Art Masterclass",
+          description: "Paint beautiful floral compositions with step-by-step guidance.",
+          price: "₹999",
+          image: "/workshop2.jpg",
+        },
+        {
+          id: 3,
+          title: "Sunflower Special Workshop",
+          description: "Celebrate your love for sunflowers with this exclusive session.",
+          price: "₹899",
+          image: "/workshop3.jpg",
+        },
+        {
+          id: 4,
+          title: "Art & Mindfulness Workshop",
+          description: "Blend creativity and calm through mindful sketching.",
+          price: "₹749",
+          image: "/workshop4.jpg",
+        },
+        {
+          id: 5,
+          title: "Ink & Wash Techniques",
+          description: "Master ink illustration with watercolor washes.",
+          price: "₹899",
+          image: "/workshop5.jpg",
+        },
+        {
+          id: 6,
+          title: "Creative Journaling",
+          description: "Turn your everyday journaling into an art practice.",
+          price: "₹699",
+          image: "/workshop6.jpg",
+        },
+      ]);
+    }
+  };
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+  fetchData();
+}, []);
+
+  return (
+    <main className="bg-[#fffdf5] min-h-screen font-orangegummy tracking-[1.1px] font-extralight py-12 px-6 md:px-20">
+      <h1 className="text-6xl text-yellow-600 font-someflowers tracking-[1.1px] text-center mb-12"> Workshops</h1>
+
+      <div className="grid gap-2 grid-cols-2 lg:grid-cols-3">
+        {workshopProducts.map((product) => (
+          <div
+            key={product.id}
+            className="flex flex-col gap-2 mb-6 justify-between rounded-2xl transition"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+            <div>
+              <Image
+                src={product.image}
+                alt={product.title}
+                width={500}
+                height={500}
+                className="w-full object-cover"
+              />
+              <div className="flex flex-col gap-2">
+                <h2 className="text-xs font-semibold text-yellow-700">
+                  {product.title}
+                </h2>
+                <p className="text-gray-600  text-[8px] md:text-xs">{product.description}</p>
+                <div className="text-yellow-800 text-xs font-bold">
+                  {product.price}
+                </div>
+              </div>
+            </div>
+            <div className="flex justify-between text-xs">
+           <button
+  onClick={() => addToCart(product)}
+  className="bg-yellow-500 text-white cursor-pointer px-2 py-1 md:px-4 md:py-2 rounded hover:bg-yellow-600 transition"
+>
+  Add to Cart
+</button>
+              <button className="bg-yellow-500 text-white cursor-pointer px-2 py-1 md:px-4 md:py-2 rounded hover:bg-yellow-600 transition">
+                Buy
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </main>
   );
-}
+};
+
+export default Page;
