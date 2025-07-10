@@ -26,7 +26,7 @@ const Page = () => {
           >
             <Link href={`/product/${product.id}`}>
               <Image
-                src={product.image}
+                src={product.images[0]}
                 alt={product.title}
                 width={500}
                 height={300}

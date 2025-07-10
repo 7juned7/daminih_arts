@@ -81,7 +81,7 @@ if (!product) return notFound();
             {product.title}
           </h1>
           <p className="text-gray-700 text-sm md:text-base">{product.description}</p>
-          <p className="text-lg md:text-xl text-yellow-900 font-bold mt-2">{product.price}</p>
+          <p className="text-lg md:text-xl text-yellow-900 font-bold mt-2">₹{product.price}</p>
 
           <button
             onClick={() => addToCart(product)}

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Menu, X, ShoppingCart } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useCart } from "@/context/CartContext";
+import Image from "next/image";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -14,7 +15,7 @@ const Navbar = () => {
   const toggleMenu = () => setMenuOpen(!menuOpen);
 
   return (
-    <nav className="bg-[#fffdf5] shadow-md font-orangegummy tracking-[1px] sticky top-0 z-50">
+    <nav className="bg-[#fffdf5]  shadow-md font-orangegummy tracking-[1px] sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between md:justify-start md:gap-8 relative">
         {/* Cart Icon - Mobile Left */}
         <Link href="/cart" className="relative md:hidden text-yellow-600 inline-block">
@@ -27,12 +28,17 @@ const Navbar = () => {
   </Link>
 
         {/* Logo - Center on mobile, left on desktop */}
-        <div className="absolute left-1/2 -translate-x-1/2 md:relative md:left-0 md:translate-x-0">
+        <div className="">
           <Link
             href="/"
-            className="text-xl font-extrabold text-yellow-600 flex items-center gap-2"
+            className=" font-extrabold text-yellow-600 flex items-center gap-2"
           >
-            🌻 <span>Daminih Arts</span>
+           <Image
+  src="/logo/logo.png"  // ✅ Start with `/` not `./`
+  alt="Logo"
+  width={120}
+  height={20}
+/>
           </Link>
         </div>
 
