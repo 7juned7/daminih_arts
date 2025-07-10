@@ -66,28 +66,28 @@ const Navbar = () => {
       </div>
 
       {/* Mobile Animated Dropdown */}
-    <AnimatePresence>
+   <AnimatePresence>
   {menuOpen && (
     <>
-      {/* Overlay */}
+      {/* Glassy overlay */}
       <motion.div
         initial={{ opacity: 0 }}
-        animate={{ opacity: 0.5 }}
+        animate={{ opacity: 0.4 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.3 }}
-        className="fixed inset-0 bg-black z-30"
-        onClick={toggleMenu} // optional: close menu when clicking on overlay
+        className="fixed inset-0 bg-white/10 backdrop-blur-md z-30"
+        onClick={toggleMenu}
       />
 
-      {/* Mobile Dropdown */}
+      {/* Glassy dropdown panel */}
       <motion.div
         initial={{ height: 0, opacity: 0 }}
         animate={{ height: "auto", opacity: 1 }}
         exit={{ height: 0, opacity: 0 }}
         transition={{ duration: 0.4 }}
-        className="md:hidden overflow-hidden bg-[#fffdf5] border-t border-yellow-100 shadow-inner px-4 pb-4 z-40 relative"
+        className="md:hidden fixed bottom-0 top-[20px] left-0 w-full backdrop-blur-md bg-white/30 border border-white/20 shadow-lg rounded-b-xl z-40 px-4 pb-6"
       >
-        <ul className="space-y-4 mt-10 text-yellow-600 text-2xl">
+        <ul className="space-y-4 mt-6 text-yellow-700 text-xl font-medium">
           <li><Link href="/calendars" onClick={toggleMenu}>Calendars</Link></li>
           <li><Link href="/" onClick={toggleMenu}>Workshops</Link></li>
           <li><Link href="/paintings" onClick={toggleMenu}>Paintings</Link></li>
@@ -97,6 +97,8 @@ const Navbar = () => {
     </>
   )}
 </AnimatePresence>
+
+
 
 
     </nav>

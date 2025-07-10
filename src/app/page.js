@@ -40,7 +40,7 @@ const Page = () => {
               <div className="py-4 px-2 space-y-1">
                 <h2 className="text-xs text-yellow-700">{product.title}</h2>
                 <p className="text-gray-600 text-[8px] md:text-xs">{product.description}</p>
-                <p className="text-yellow-800 text-[10px] md:text-sm">{product.price}</p>
+        
               </div>
             </Link>
           </div>
