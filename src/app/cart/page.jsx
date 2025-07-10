@@ -31,7 +31,7 @@ const Page = () => {
               className="flex flex-col sm:flex-row items-center sm:items-start border border-yellow-200 rounded-xl p-4 gap-4 bg-white"
             >
               <Image
-                src={item.image}
+                src={item.images[0]}
                 alt={item.title}
                 width={100}
                 height={100}

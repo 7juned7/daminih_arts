@@ -26,10 +26,11 @@ const Page = () => {
           >
             <Link href={`/product/${product.id}`}>
               <Image
-                src={product.image}
+                src={product.images[0]}
                 alt={product.title}
                 width={500}
                 height={300}
+                priority
                 className="w-full object-cover h-48 md:h-64 hover:scale-[1.02] transition duration-200"
               />
               <div className="p-3 space-y-1">

@@ -9,39 +9,30 @@ import { useRef, useState, useEffect } from "react";
 
 const ProductPage = () => {
   const { id } = useParams();
-  const { products, loading } = useProducts();
-  const { addToCart } = useCart();
+const { products, loading } = useProducts();
+const { addToCart } = useCart();
 
-  if (loading) return <p className="text-center py-20">Loading...</p>;
+const scrollRef = useRef(null);
+const [activeIndex, setActiveIndex] = useState(0);
 
-  const product = products.find((p) => p.id.toString() === id);
-  if (!product) return notFound();
+useEffect(() => {
+  const el = scrollRef.current;
+  if (!el) return;
 
-  const images = product?.images || [product?.image];
-  const scrollRef = useRef(null);
-  const [activeIndex, setActiveIndex] = useState(0);
-
-  useEffect(() => {
-    const el = scrollRef.current;
-    if (!el) return;
-
-    const handleScroll = () => {
-      const scrollLeft = el.scrollLeft;
-      const width = el.clientWidth;
-      const index = Math.round(scrollLeft / width);
-      setActiveIndex(index);
-    };
-
-    el.addEventListener("scroll", handleScroll, { passive: true });
-    return () => el.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const scrollTo = (index) => {
-    const el = scrollRef.current;
-    if (!el) return;
+  const handleScroll = () => {
+    const scrollLeft = el.scrollLeft;
     const width = el.clientWidth;
-    el.scrollTo({ left: index * width, behavior: "smooth" });
+    const index = Math.round(scrollLeft / width);
+    setActiveIndex(index);
   };
+
+  el.addEventListener("scroll", handleScroll, { passive: true });
+  return () => el.removeEventListener("scroll", handleScroll);
+}, []);
+if (loading) return <p className="text-center py-20">Loading...</p>;
+
+const product = products.find((p) => p.id.toString() === id);
+if (!product) return notFound();
 
   return (
     <main className="min-h-screen bg-[#fffdf5] py-12 px-4 md:px-20 font-orangegummy tracking-[1px]">
@@ -53,21 +44,26 @@ const ProductPage = () => {
             className="flex overflow-x-auto snap-x snap-mandatory scroll-smooth rounded-xl h-[300px] md:h-[400px] w-full scrollbar-hide"
             style={{ scrollbarWidth: "none" }}
           >
-            {images.map((img, idx) => (
-              <Image
-                key={idx}
-                src={img}
-                alt={`${product.title} ${idx + 1}`}
-                width={800}
-                height={600}
-                className="snap-center shrink-0 w-full object-cover rounded-xl"
-              />
-            ))}
+           {product.images?.map((img, idx) => (
+  <Image
+    key={idx}
+    src={img}
+    alt={`${product.title} ${idx + 1}`}
+    width={800}
+    height={600}
+    className="snap-center shrink-0 w-full object-cover rounded-xl"
+    onError={(e) => {
+      e.currentTarget.src = "/fallback.jpg"; // fallback image in public/
+    }}
+    priority={idx === 0} // optional: prioritizes first image loading
+  />
+))}
+
           </div>
 
           {/* Dots */}
           <div className="flex justify-center mt-4 space-x-2">
-            {images.map((_, idx) => (
+            {product.images.map((_, idx) => (
               <button
                 key={idx}
                 className={`w-3 h-3 rounded-full transition ${

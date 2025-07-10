@@ -1,5 +1,5 @@
 "use client";
-// daminihartsgooglesheetsecretapikey
+
 import { createContext, useContext, useEffect, useState } from "react";
 
 const ProductsContext = createContext();
@@ -9,29 +9,43 @@ export const useProducts = () => useContext(ProductsContext);
 export const ProductsProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  // Fetch all products from your sheet or API
-  useEffect(() => {
+useEffect(() => {
   const fetchProducts = async () => {
     try {
-      const res = await fetch("https://script.google.com/macros/s/AKfycbxx-0rzTQxSIbXfOjzFbsSamnZw6zM0p3LyS0aKzKVhXuKXSzRTitZOUzknd0peJBJv/exec?key=daminihartsgooglesheetsecretapikey");
-      if (!res.ok) throw new Error("Failed to fetch products");
+      const res = await fetch("https://opensheet.vercel.app/1MfdvAcPoCE7PjNK1L6L6TZGyIxVaqXPpMi9D5tfdwVk/Sheet1");
       const data = await res.json();
-      console.log(data);
-      setProducts(data.map((item, idx) => ({
-        ...item,
-        id: item.id?.toString() || idx.toString(),
-        images: [item.imageURL],
-      })));
-    } catch (err) {
-      console.error("Failed to fetch secure products:", err);
-    } finally {
-      setLoading(false);
+
+    const formatDriveLink = (url) => {
+  const match = url?.match(/\/d\/(.*?)\//);
+  return match ? `https://drive.google.com/uc?export=view&id=${match[1]}` : url;
+};
+
+const formatted = data.map((item, idx) => ({
+  id: item.id?.toString() || idx.toString(),
+  title: item.title,
+  description: item.description,
+  price: item.price,
+  images: [item.image1, item.image2, item.image3]
+    .filter(Boolean)
+    .map(formatDriveLink),
+  type: item.type || "product",
+}));
+
+console.log(formatted)
+      setProducts(formatted);
+      
+    } catch (error) {
+      console.error("Fetch error:", error);
+    }finally{
+      setLoading(false)
     }
   };
 
   fetchProducts();
 }, []);
+
+  // Fetch all products from your sheet or API
+ 
 
 
   const getProductById = (id) =>
