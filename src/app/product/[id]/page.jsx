@@ -77,7 +77,7 @@ if (!product) return notFound();
 
         {/* Info Section */}
         <div className="flex flex-col gap-4">
-          <h1 className="text-3xl md:text-4xl font-someflowers text-yellow-700">
+          <h1 className="text-3xl md:text-4xl text-yellow-700">
             {product.title}
           </h1>
           <p className="text-gray-700 text-sm md:text-base">{product.description}</p>

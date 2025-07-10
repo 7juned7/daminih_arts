@@ -8,8 +8,8 @@ const AboutPage = () => {
         <div className="max-w-5xl m-auto  space-y-12 " >
 
       <section>
-        <h1 className="text-5xl font-orangegummy text-yellow-600 mb-4">ABOUT DAMINIH ARTS</h1>
-        <p className="text-sm leading-7">
+        <h1 className="text-4xl font-orangegummy text-yellow-600 mb-4">ABOUT DAMINIH ARTS</h1>
+        <p className="text-sm ">
 It all started with a T-shirt painting that she made for her sister and who knew that a birthday gift for her sister would give her an amazing venture idea.
 “I need to leave my job”, she thought to herself. Part time painting and full time job was not something that was quite enough to quench her thirst for art. And that was the inception of Daminih Arts. 
           <br /><br />
@@ -28,7 +28,7 @@ It all started with a T-shirt painting that she made for her sister and who knew
 
       <section>
         <h2 className="text-3xl  font-orangegummy text-yellow-600 mb-3">HANDMADE PRODUCTS</h2>
-        <p className="text-sm leading-7">
+        <p className="text-sm ">
     Every handmadeproduct is special because it has emotions and love woven into it. People mostly buy our products to gift them to their loved ones or get a special design made for themselves whichis of emotional significance to them such as a pet portrait, a loving person’s portrait as a surprise gift, cutecouplesdesigns for their partner. People also buy our products for special days like mother’sday, women’s day, valentines day and many more emotions get attached with every piece of art. 
           <br /><br />
        There are many in-house designs available or you can get it customized too. You just have to get in touch with us and we are available 24/7. The handmade products reflect the dedication and perseverance of the artist unlike factory made or printed products. There is something magical about these products and if you love and appreciate art, you’ll understand what we’re talking about. 

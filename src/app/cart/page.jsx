@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useCart } from "@/context/CartContext";
+import Link from "next/link";
 
 const Page = () => {
   const { cartItems, updateQuantity, removeItem, total } = useCart();
@@ -87,9 +88,9 @@ const Page = () => {
 
           {/* Checkout Button */}
           <div className="text-center mt-6">
-            <button className="bg-yellow-500 text-white font-orangegummy w-full sm:w-auto px-6 py-3 rounded-lg hover:bg-yellow-600 transition">
+            <Link href="/checkout" className="bg-yellow-500 text-white font-orangegummy w-full sm:w-auto px-6 py-3 rounded-lg hover:bg-yellow-600 transition">
               Proceed to Checkout
-            </button>
+            </Link>
           </div>
         </div>
       )}

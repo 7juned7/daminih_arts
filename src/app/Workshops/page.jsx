@@ -9,21 +9,21 @@ const Page = () => {
   const { addToCart } = useCart();
   const { products } = useProducts();
 
-  const paintingProducts = products.filter((product) => product.type === "painting");
+  const workshopProducts = products.filter((product) => product.type === "workshop");
 
   return (
     <main className="bg-[#fffdf5]   py-12 px-6 md:px-20">
       <div className="max-w-4xl mx-auto" >
 
-      <h1 className="text-4xl md:text-6xl text-yellow-600  text-center mb-8">
-        Paintings
+      <h1 className="text-xl md:text-3xl text-yellow-600   text-center mb-8">
+        Workshops
       </h1>
 
       
 
       {/* Products Section */}
       <div className="grid gap-4 grid-cols-2 lg:grid-cols-3">
-        {paintingProducts.map((product) => (
+        {workshopProducts.map((product) => (
           <div
             key={product.id}
             className="overflow-hidden hover:shadow-lg transition bg-white rounded"
@@ -38,8 +38,8 @@ const Page = () => {
                 className="w-full object-cover h-48 md:h-64 hover:scale-[1.02] transition duration-200"
               />
               <div className="py-4 px-2 space-y-1">
-                <h2 className="text-xs text-yellow-700">{product.title}</h2>
-                <p className="text-gray-600 text-[8px] md:text-xs">{product.description}</p>
+                <h2 className="text-sm text-yellow-700">{product.title}</h2>
+                <p className="text-gray-600 text-sm md:text-sm">{product.description}</p>
         
               </div>
             </Link>
