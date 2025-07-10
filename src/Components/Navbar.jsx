@@ -51,8 +51,8 @@ const Navbar = () => {
         <ul className="hidden md:flex space-x-6 text-gray-700 font-medium ml-auto">
           
           <li className="hover:text-yellow-600 transition"><Link href="/">Workshops</Link></li>
-             <li className="hover:text-yellow-600 transition"><Link href="/Calendars">Calendars</Link></li>
-                <li className="hover:text-yellow-600 transition"><Link href="/Paintings">Paintings</Link></li>
+             <li className="hover:text-yellow-600 transition"><Link href="/calendars">Calendars</Link></li>
+                <li className="hover:text-yellow-600 transition"><Link href="/paintings">Paintings</Link></li>
           <li className="hover:text-yellow-600 transition"><Link href="/about">About</Link></li>
          <Link href="/cart" className="relative hidden text-yellow-600 inline-block">
     <ShoppingCart />
@@ -75,11 +75,11 @@ const Navbar = () => {
       transition={{ duration: 0.4 }}
       className="md:hidden overflow-hidden bg-[#fffdf5] border-t border-yellow-100 shadow-inner px-4 pb-4"
     >
-      <ul className="space-y-4 mt-10 font-someflowers  text-yellow-600 text-6xl font-light">
+      <ul className="space-y-4 mt-10  text-yellow-600 text-2xl">
       
-        <li><Link href="/Calendars" onClick={toggleMenu}>Calendars</Link></li>
+        <li><Link href="/calendars" onClick={toggleMenu}>Calendars</Link></li>
         <li><Link href="/" onClick={toggleMenu}>Workshops</Link></li>
-        <li><Link href="/Paintings" onClick={toggleMenu}>Paintings</Link></li>
+        <li><Link href="/paintings" onClick={toggleMenu}>Paintings</Link></li>
       
         <li><Link href="/about" onClick={toggleMenu}>About</Link></li>
       </ul>

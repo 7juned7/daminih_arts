@@ -6,7 +6,7 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
         {/* Important Links */}
         <div>
-          <h3 className="text-yellow-600  font-medium mb-3">🌻 Important Links</h3>
+          <h3 className="text-yellow-600  mb-3">🌻 Important Links</h3>
           <ul className="space-y-1 text-white">
             <li><a href="/calendars" className="hover:underline">Calendar</a></li>
             <li><a href="/about" className="hover:underline">About us</a></li>

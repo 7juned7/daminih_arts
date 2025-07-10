@@ -14,7 +14,7 @@ const Page = () => {
 
   return (
     <main className="bg-[#fffdf5] min-h-screen font-orangegummy tracking-[1.1px] py-12 px-6 md:px-20">
-      <h1 className="text-6xl text-yellow-600 font-someflowers tracking-[1.1px] text-center mb-12">
+      <h1 className="text-6xl text-yellow-600  tracking-[1.1px] text-center mb-12">
         Painting
       </h1>
 

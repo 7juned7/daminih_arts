@@ -8,7 +8,7 @@ const Page = () => {
 
   return (
     <main className="bg-[#fffdf5] min-h-screen py-12 px-4 md:px-20 font-orangegummy tracking-[1px]">
-      <h1 className="text-6xl md:text-6xl text-yellow-600 font-someflowers text-center mb-10">
+      <h1 className="text-6xl md:text-6xl text-yellow-600  text-center mb-10">
         Your Cart
       </h1>
 
