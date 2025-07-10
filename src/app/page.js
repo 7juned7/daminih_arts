@@ -19,18 +19,7 @@ const Page = () => {
         Workshops
       </h1>
 
-      {/* Intro Section */}
-      <section className="max-w-4xl mx-auto font-mono text-xs md:text-base text-gray-800 leading-4 space-y-4 mb-10">
-        <p>
-         Are you a person who is looking to explore something new and creative to break the shackles of your same old daily routine life??
-        </p>
-        <p>
-          We are here for you. We conduct Painting workshops on regular basis and on different mediums. It’s for people who want to learn painting, doodling and creating their own art. It’s for beginners, artists, non- artists and those who want to get stress out of their lives. It’s even more fun when you attend our workshops to have a weekend getaway with your friends, colleagues or just your partner. 
-        </p>
-       
-
-     
-      </section>
+      
 
       {/* Products Section */}
       <div className="grid gap-4 grid-cols-2 lg:grid-cols-3">
