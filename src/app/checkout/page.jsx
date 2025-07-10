@@ -2,6 +2,7 @@
 
 import { useCart } from "@/context/CartContext";
 import Image from "next/image";
+import Script from "next/script";
 import { useState } from "react";
 
 const Checkout = () => {
@@ -18,17 +19,85 @@ const Checkout = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = () => {
-    if (!form.name || !form.email || !form.phone || !form.address) {
-      alert("Please fill in all fields");
+const handleSubmit = async () => {
+  if (!form.name || !form.email || !form.phone || !form.address) {
+    alert("Please fill in all fields");
+    return;
+  }
+console.log(process.env.NEXT_PUBLIC_BACKEND_URL)
+  try {
+    // 1. Create order on backend
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/create-order`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ amount: total * 100 }), // Amount must be in paisa
+    });
+
+    if (!res.ok) {
+      throw new Error("Failed to create Razorpay order");
+    }
+
+    const orderData = await res.json();
+
+    // 2. Check Razorpay loaded
+    if (!window.Razorpay) {
+      alert("Razorpay SDK not loaded. Please try again.");
       return;
     }
 
-    // This is where you'd send data to backend
-    alert("Order placed successfully!");
+    const options = {
+      key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID, // ✅ Use test key
+      amount: orderData.amount, // in paisa
+      currency: orderData.currency,
+      name: "My Store",
+      description: "Order Payment",
+      order_id: orderData.id,
+      handler: async function (response) {
+        // 3. Verify payment on backend
+        const verifyRes = await fetch("http://localhost:3001/verify-payment", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            razorpay_order_id: response.razorpay_order_id,
+            razorpay_payment_id: response.razorpay_payment_id,
+            razorpay_signature: response.razorpay_signature,
+          }),
+        });
 
-    // Example: console.log({ form, cartItems, total });
-  };
+        const result = await verifyRes.json();
+
+        if (result.status === "success") {
+          alert("✅ Payment Successful!");
+          // TODO: reset form, clear cart, redirect etc.
+        } else {
+          alert("❌ Payment verification failed!");
+        }
+      },
+      prefill: {
+        name: form.name,
+        email: form.email,
+        contact: form.phone,
+      },
+      method: {
+        upi: true,
+        card: true,
+        netbanking: false,
+      },
+      theme: {
+        color: "#facc15",
+      },
+    };
+
+    const rzp = new window.Razorpay(options);
+    rzp.open();
+  } catch (error) {
+    console.error("Checkout Error:", error);
+    alert("Something went wrong during checkout.");
+  }
+};
+
+
+
 
   return (
     <main className="bg-[#fffdf5] min-h-screen py-12 px-4 md:px-20 font-orangegummy tracking-[1px]">
@@ -113,6 +182,10 @@ const Checkout = () => {
           Place Order
         </button>
       </div>
+      <Script
+  src="https://checkout.razorpay.com/v1/checkout.js"
+  strategy="afterInteractive"
+/>
     </main>
   );
 };
