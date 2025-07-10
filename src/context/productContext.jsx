@@ -14,7 +14,7 @@ export const ProductsProvider = ({ children }) => {
   useEffect(() => {
   const fetchProducts = async () => {
     try {
-      const res = await fetch("https://script.google.com/macros/s/AKfycbwV_OcJcSGTG0LJUtyrt3RaHF09VNl0g3Our-ghS_tIjVF2m-BuFR5uyGjII6pW4Mqd/exec?key=daminihartsgooglesheetsecretapikey");
+      const res = await fetch("https://script.google.com/macros/s/AKfycbxx-0rzTQxSIbXfOjzFbsSamnZw6zM0p3LyS0aKzKVhXuKXSzRTitZOUzknd0peJBJv/exec?key=daminihartsgooglesheetsecretapikey");
       if (!res.ok) throw new Error("Failed to fetch products");
       const data = await res.json();
       console.log(data);
