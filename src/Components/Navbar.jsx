@@ -66,26 +66,38 @@ const Navbar = () => {
       </div>
 
       {/* Mobile Animated Dropdown */}
-     <AnimatePresence>
+    <AnimatePresence>
   {menuOpen && (
-    <motion.div
-      initial={{ height: 0, opacity: 0 }}
-      animate={{ height: "auto", opacity: 1 }}
-      exit={{ height: 0, opacity: 0 }}
-      transition={{ duration: 0.4 }}
-      className="md:hidden overflow-hidden bg-[#fffdf5] border-t border-yellow-100 shadow-inner px-4 pb-4"
-    >
-      <ul className="space-y-4 mt-10  text-yellow-600 text-2xl">
-      
-        <li><Link href="/calendars" onClick={toggleMenu}>Calendars</Link></li>
-        <li><Link href="/" onClick={toggleMenu}>Workshops</Link></li>
-        <li><Link href="/paintings" onClick={toggleMenu}>Paintings</Link></li>
-      
-        <li><Link href="/about" onClick={toggleMenu}>About</Link></li>
-      </ul>
-    </motion.div>
+    <>
+      {/* Overlay */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.5 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.3 }}
+        className="fixed inset-0 bg-black z-30"
+        onClick={toggleMenu} // optional: close menu when clicking on overlay
+      />
+
+      {/* Mobile Dropdown */}
+      <motion.div
+        initial={{ height: 0, opacity: 0 }}
+        animate={{ height: "auto", opacity: 1 }}
+        exit={{ height: 0, opacity: 0 }}
+        transition={{ duration: 0.4 }}
+        className="md:hidden overflow-hidden bg-[#fffdf5] border-t border-yellow-100 shadow-inner px-4 pb-4 z-40 relative"
+      >
+        <ul className="space-y-4 mt-10 text-yellow-600 text-2xl">
+          <li><Link href="/calendars" onClick={toggleMenu}>Calendars</Link></li>
+          <li><Link href="/" onClick={toggleMenu}>Workshops</Link></li>
+          <li><Link href="/paintings" onClick={toggleMenu}>Paintings</Link></li>
+          <li><Link href="/about" onClick={toggleMenu}>About</Link></li>
+        </ul>
+      </motion.div>
+    </>
   )}
 </AnimatePresence>
+
 
     </nav>
   );
