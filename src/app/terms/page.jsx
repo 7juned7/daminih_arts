@@ -18,7 +18,7 @@ const TermsPage = () => {
           {"\n"}• DaMini Arts makes available information and materials on its website www.daminiarts.com subject to the following terms and conditions (Terms of Use). Your use of www.daminiarts.com constitutes your agreement to follow and be bound by these Terms of Use; if you do not agree to the Terms of Use you may not use the site.{"\n"}• In these Terms and Conditions, the user of the Website is referred to as "you" or "your" and the provider of website is referred to as “DaMini Arts”, "www.daminiarts.com", "we", "us" or "our".
         </p>
 
-       <p className="text-black" >
+       <p className="scroll-mt-40 text-black" id="shipping-policy" >
           <strong className="font-orangegummy font-medium text-yellow-600" >Shipping</strong>
           {"\n"}•	The shipping charges are Rs. 50 in Mumbai and 100 in anywhere in India except Mumbai.
           {"\n"}•	We shall deliver your order in 1 to 2 weeks depending on the location to be shipped in India.
@@ -33,7 +33,7 @@ const TermsPage = () => {
           {"\n"}•	Unfortunately, we cannot cancel orders once the shipment is out of our store for delivery. 
         </p>
 
-       <p className="text-black" >
+       <p className="scroll-mt-40 text-black" id="return-policy" >
           <strong className="font-orangegummy font-medium text-yellow-600" >Returns Policy</strong>
           {"\n"}•	If you are not absolutely delighted with your purchase for any reason whatsoever, return it to us in the condition you received it in, in the original packaging, within 15 days of purchase for a full refund. The only exclusions under this money back guarantee are the original shipping costs. 
           {"\n"}•	In an unlikely event that that your merchandise arrives damaged, email us a photo of the damaged product within 24 hours of receiving your order with details of the order. 
@@ -89,7 +89,7 @@ const TermsPage = () => {
           {"\n"}•	Although we will make every effort to respond quickly to applicable email messages, DaMini Arts is under no obligation to respond to all pieces of correspondence received through this site, or to maintain your submitted comments in confidence, or to pay compensation of any kind for your comments or submissions.
         </p>
 
-      <p className="text-black" >
+      <p className="scroll-mt-40 text-black" id="privacy-policy" >
           <strong className="font-orangegummy font-medium text-yellow-600" >Privacy Policy</strong>
           {"\n"}•	This privacy policy sets out how DaMini Arts uses and protects any information that you give when you use this website. DaMini Arts is committed to ensuring that your privacy is protected, subject to the terms of the ‘Security’ Clause below. 
           {"\n"}•	Should we ask you to provide certain information by which you can be identified when using this website, then you can be assured that it will only be used in accordance with this privacy statement. 
@@ -109,7 +109,7 @@ const TermsPage = () => {
             {"\n"}•	We may periodically send promotional emails about new products, special offers or other information which we think you may find interesting using the email address which you have provided.
             {"\n"}•	From time to time, we may also use your information to contact you for market research purposes. We may contact you by email, phone, fax or mail. We may use the information to customise the website according to your interests. 
           </p>
-    <p className="text-black" >
+    <p className="scroll-mt-40 text-black" id="contact-us" >
           <strong className="font-orangegummy font-medium text-yellow-600" >Contact Us</strong>
           {"\n"}We would love to hear from you!{"\n"}Email: contact@daminiarts.com
         </p>

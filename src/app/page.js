@@ -49,9 +49,9 @@ const Page = () => {
                 className="w-full object-cover h-48 md:h-64 hover:scale-[1.02] transition duration-200"
               />
               <div className="py-4 px-2 space-y-1">
-                <h2 className="text-xs font-semibold text-yellow-700">{product.title}</h2>
+                <h2 className="text-xs text-yellow-700">{product.title}</h2>
                 <p className="text-gray-600 text-[8px] md:text-xs">{product.description}</p>
-                <p className="text-yellow-800 font-bold text-[10px] md:text-sm">{product.price}</p>
+                <p className="text-yellow-800 text-[10px] md:text-sm">{product.price}</p>
               </div>
             </Link>
           </div>

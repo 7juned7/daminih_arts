@@ -10,8 +10,8 @@ const Footer = () => {
           <ul className="space-y-1 text-white">
             <li><a href="/calendars" className="hover:underline">Calendar</a></li>
             <li><a href="/about" className="hover:underline">About us</a></li>
-            <li><a href="/contact" className="hover:underline">Contact us</a></li>
-            <li><a href="/faqs" className="hover:underline">FAQs</a></li>
+            <li><a href="terms/#contact-us" className="hover:underline">Contact us</a></li>
+            
           </ul>
         </div>
 
@@ -20,9 +20,9 @@ const Footer = () => {
           <h3 className="text-yellow-600  mb-3">📝 Policies</h3>
           <ul className="space-y-1 text-white">
             <li><a href="/terms" className="hover:underline">Terms & Conditions</a></li>
-            <li><a href="/privacy" className="hover:underline">Privacy Policy</a></li>
-            <li><a href="/shipping" className="hover:underline">Shipping & Delivery Policy</a></li>
-            <li><a href="/refund" className="hover:underline">Refund Policy</a></li>
+            <li><a href="/terms/#privacy-policy" className="hover:underline">Privacy Policy</a></li>
+            <li><a href="/terms/#shipping-policy" className="hover:underline">Shipping & Delivery Policy</a></li>
+            <li><a href="/terms/#return-policy" className="hover:underline">Refund Policy</a></li>
           </ul>
         </div>
 

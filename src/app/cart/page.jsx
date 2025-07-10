@@ -8,7 +8,7 @@ const Page = () => {
 
   return (
     <main className="bg-[#fffdf5] min-h-screen py-12 px-4 md:px-20 font-orangegummy tracking-[1px]">
-      <h1 className="text-4xl md:text-6xl text-yellow-600 font-someflowers text-center mb-10">
+      <h1 className="text-6xl md:text-6xl text-yellow-600 font-someflowers text-center mb-10">
         Your Cart
       </h1>
 
@@ -19,7 +19,7 @@ const Page = () => {
           {/* Total Items */}
           <p className="text-right text-sm text-yellow-700">
             Total Items:{" "}
-            <span className="font-semibold">
+            <span className="">
               {cartItems.reduce((sum, item) => sum + item.quantity, 0)}
             </span>
           </p>
@@ -38,7 +38,7 @@ const Page = () => {
                 className="rounded-xl object-cover w-full sm:w-[100px] sm:h-[100px]"
               />
               <div className="flex-1 w-full">
-                <h2 className="text-yellow-700 font-semibold text-sm">{item.title}</h2>
+                <h2 className="text-yellow-700  text-sm">{item.title}</h2>
                 <p className="text-xs text-gray-600">₹{item.price} each</p>
 
                 <div className="flex flex-wrap items-center gap-2 mt-2">
@@ -73,21 +73,21 @@ const Page = () => {
                 </div>
               </div>
 
-              <div className="text-yellow-700 font-bold text-right w-full sm:w-auto">
+              <div className="text-yellow-700  text-right w-full sm:w-auto">
                 ₹{item.price * item.quantity}
               </div>
             </div>
           ))}
 
           {/* Total Price */}
-          <div className="flex justify-between items-center mt-8 border-t pt-4 text-lg font-semibold text-yellow-700">
+          <div className="flex justify-between items-center mt-8 border-t pt-4 text-lg  text-yellow-700">
             <span>Total</span>
             <span>₹{total}</span>
           </div>
 
           {/* Checkout Button */}
           <div className="text-center mt-6">
-            <button className="bg-yellow-500 text-white w-full sm:w-auto px-6 py-3 rounded-lg hover:bg-yellow-600 transition font-semibold">
+            <button className="bg-yellow-500 text-white font-orangegummy w-full sm:w-auto px-6 py-3 rounded-lg hover:bg-yellow-600 transition">
               Proceed to Checkout
             </button>
           </div>
