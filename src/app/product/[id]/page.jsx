@@ -6,10 +6,12 @@ import { notFound } from "next/navigation";
 import { useProducts } from "@/context/productContext";
 import { useCart } from "@/context/CartContext";
 import { useRef, useState, useEffect } from "react";
-import { X, ZoomIn } from "lucide-react";
+import { IndianRupee, X, ZoomIn } from "lucide-react";
+import AnimatedButton from "@/utils/button";
 
 const ProductPage = () => {
   const { id } = useParams();
+  
 const { products, loading } = useProducts();
 const { addToCart } = useCart();
 const [zoomImage, setZoomImage] = useState(null);
@@ -17,6 +19,11 @@ const [zoomImage, setZoomImage] = useState(null);
 const scrollRef = useRef(null);
 const [activeIndex, setActiveIndex] = useState(0);
 
+
+if (loading) return <p className="text-center py-20">Loading...</p>;
+
+const product = products.find((p) => p.id.toString() === id);
+if (!product) return notFound();
 useEffect(() => {
   const el = scrollRef.current;
   if (!el) return;
@@ -31,18 +38,24 @@ useEffect(() => {
   el.addEventListener("scroll", handleScroll, { passive: true });
   return () => el.removeEventListener("scroll", handleScroll);
 }, []);
-if (loading) return <p className="text-center py-20">Loading...</p>;
+const scrollTo = (index) => {
+  const el = scrollRef.current;
+  if (!el) return;
 
-const product = products.find((p) => p.id.toString() === id);
-if (!product) return notFound();
-
+  const width = el.clientWidth;
+  el.scrollTo({
+    left: index * width,
+    behavior: "smooth",
+  });
+  setActiveIndex(index); // Update manually on click
+};
   return (
-    <main className="min-h-screen bg-[#fffdf5] py-12 px-4 md:px-20 font-orangegummy tracking-[1px]">
+    <main className="min-h-screen max-w-6xl m-auto bg-white py-12 px-4 md:px-20 font-orangegummy tracking-[1px]">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
         {/* Image Carousel */}
         <div>
          <div ref={scrollRef}
-  className="flex overflow-x-auto snap-x snap-mandatory scroll-smooth h-[300px] md:h-[400px] w-full relative scrollbar-hide"
+  className="flex overflow-x-auto snap-x snap-mandatory scroll-smooth h-[500px] md:h-[500px] w-full relative scrollbar-hide"
   style={{ scrollbarWidth: "none" }}
 >
   {product.images?.map((img, idx) => (
@@ -71,33 +84,33 @@ if (!product) return notFound();
 
 
           {/* Dots */}
-          <div className="flex justify-center mt-4 space-x-2">
-            {product.images.map((_, idx) => (
-              <button
-                key={idx}
-                className={`w-3 h-3 rounded-full transition ${
-                  idx === activeIndex ? "bg-yellow-600" : "bg-yellow-300"
-                }`}
-                onClick={() => scrollTo(idx)}
-              />
-            ))}
-          </div>
+        <div className="flex justify-center mt-4 space-x-2">
+  {product.images.map((_, idx) => (
+    <button
+      key={idx}
+      className={`w-3 h-3 rounded-full transition ${
+        idx === activeIndex ? "bg-black" : "bg-white border border-black"
+      }`}
+      onClick={() => scrollTo(idx)} // ✅ Now defined
+    />
+  ))}
+</div>
+
+
         </div>
 
         {/* Info Section */}
-        <div className="flex flex-col gap-4">
-          <h1 className="text-3xl md:text-4xl text-yellow-700">
+        <div className="flex  px-8 flex-col gap-4">
+          <h1 className="text-3xl md:text-3xl text-gray-700">
             {product.title}
           </h1>
-          <p className="text-gray-700 text-sm md:text-base">{product.description}</p>
-          <p className="text-lg md:text-xl text-yellow-900 font-bold mt-2">₹{product.price}</p>
+          <p className="text-gray-700 text-sm md:text-base">{product.description} Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatibus consectetur dolore hic animi ipsam ipsa omnis, delectus suscipit dolor, qui ducimus cumque. Vitae dolor unde illum iste. Assumenda, aliquam voluptatum?</p>
+          <p className="text-lg md:text-xl flex text-center items-center text-gray-600 font-bold mt-2"> <IndianRupee className="w-5 h-5" />{product.price}</p>
 
-          <button
-            onClick={() => addToCart(product)}
-            className="mt-4 bg-yellow-500 hover:bg-yellow-600 text-white font-semibold px-6 py-3 rounded transition w-fit"
-          >
-            Add to Cart
-          </button>
+        <AnimatedButton onClick={() => addToCart(product)}>
+  Add to Cart
+</AnimatedButton>
+
         </div>
       </div>{zoomImage && (
   <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 backdrop-blur-sm">
@@ -107,13 +120,13 @@ if (!product) return notFound();
       alt="Zoomed Image"
       width={1000}
       height={800}
-      className="object-contain w-full h-full border-[5px] border-red-500"
+      className="object-contain w-full h-full border-[5px] border-white"
     />
     <button
       onClick={() => setZoomImage(null)}
       className="absolute top-2 right-2 bg-white p-2 rounded-full shadow hover:bg-gray-100"
     >
-       <X className="w-5 h-5 cursor-pointer text-gray-800" />
+       <X className="w-5 h-5 text-gray-800 cursor-pointer" />
     </button>
   </div>
 </div>
