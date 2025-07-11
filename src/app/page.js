@@ -26,9 +26,7 @@ const products = [
 ];
 
 const bannerImages = [
-  '/images/banner1.jpg',
-  '/images/banner2.jpg',
-  '/images/banner3.jpg',
+"/banner/banner1.jpeg","/banner/banner2.jpeg","/banner/banner3.jpeg","/banner/banner4.jpeg","/banner/banner5.jpeg"
 ];
 
 const slideUp = {
@@ -53,43 +51,51 @@ const Page = () => {
   }, []);
 
   const variants = {
-    enter: (direction) => ({
-      x: direction > 0 ? 300 : -300,
-      opacity: 0,
-    }),
-    center: {
-      x: 0,
-      opacity: 1,
-      transition: { duration: 0.6 },
+  enter: (direction) => ({
+    x: direction > 0 ? 1000 : -1000,
+    opacity: 0,
+  }),
+  center: {
+    x: 0,
+    opacity: 1,
+    transition: {
+      duration: 0.5,
+      ease: "easeOut",
     },
-    exit: (direction) => ({
-      x: direction < 0 ? 300 : -300,
-      opacity: 0,
-      transition: { duration: 0.6 },
-    }),
-  };
+  },
+  exit: (direction) => ({
+    x: direction < 0 ? 1000 : -1000,
+    opacity: 0,
+    transition: {
+      duration: 0.5,
+      ease: "easeIn",
+    },
+  }),
+};
+
 
   return (
-    <div className="min-h-screen bg-white py-12 px-6">
+    <div className="min-h-screen bg-white py-0 px-0">
       {/* 🔼 Sliding Carousel Banner */}
-      <div className="w-full mb-12 overflow-hidden rounded-xl shadow-md aspect-[4/1] relative">
-        <AnimatePresence initial={false} custom={direction}>
-          <motion.img
-            key={bannerImages[index]}
-            src={bannerImages[index]}
-            alt="Banner"
-            custom={direction}
-            variants={variants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            className="absolute w-full h-full object-cover"
-          />
-        </AnimatePresence>
-      </div>
+      <div className="w-full mb-12  overflow-hidden shadow-md aspect-[12/5] relative">
+  <AnimatePresence initial={false} custom={direction}>
+    <motion.img
+      key={bannerImages[index]}
+      src={bannerImages[index]}
+      alt="Banner"
+      custom={direction}
+      variants={variants}
+      initial="enter"
+      animate="center"
+      exit="exit"
+      className="absolute w-full h-full object-cover"
+    />
+  </AnimatePresence>
+</div>
+
 
       {/* 🔽 Product Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+      <div className="m-auto max-w-6xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
         {products.map((product, i) => (
           <motion.div
             key={product.name}
@@ -100,14 +106,14 @@ const Page = () => {
             variants={slideUp}
           >
             <Link href={`/${product.slug}`}>
-              <div className="cursor-pointer border p-4 rounded-xl shadow-md hover:shadow-lg transition">
+              <div className="cursor-pointer  space-y-2 hover:shadow-lg transition">
                 <img
                   src={product.image}
                   alt={product.name}
                   className="w-full h-48 object-cover rounded-lg mb-4"
                 />
-                <h2 className="text-xl text-yellow-600 font-semibold">{product.name}</h2>
-                <p className="text-gray-600">{product.description}</p>
+                <h2 className="text-md text-yellow-600 font-semibold">{product.name}</h2>
+                <p className="text-gray-600 text-sm">{product.description}</p>
               </div>
             </Link>
           </motion.div>

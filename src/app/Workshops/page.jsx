@@ -13,7 +13,7 @@ const Page = () => {
 
   return (
     <main className="bg-[#fffdf5]   py-12 px-6 md:px-20">
-      <div className="max-w-4xl mx-auto" >
+      <div className="max-w-6xl mx-auto" >
 
       <h1 className="text-xl md:text-3xl text-yellow-600   text-center mb-8">
         Workshops
@@ -38,7 +38,7 @@ const Page = () => {
                 className="w-full object-cover h-48 md:h-64 hover:scale-[1.02] transition duration-200"
               />
               <div className="py-4 px-2 space-y-1">
-                <h2 className="text-sm text-yellow-700">{product.title}</h2>
+                <h2 className="text-md text-yellow-700">{product.title}</h2>
                 <p className="text-gray-600 text-sm md:text-sm">{product.description}</p>
         
               </div>

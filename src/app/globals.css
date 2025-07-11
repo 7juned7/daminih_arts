@@ -9,6 +9,9 @@ h1,h2,h3,li {
 font-weight: 200;
 font-style: normal;/* Check exact font name from Adobe */
 }
+body{
+  background-color: #fffdf5;
+}
 
 @theme inline {
   --color-background: var(--background);
