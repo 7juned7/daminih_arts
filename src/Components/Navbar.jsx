@@ -36,7 +36,7 @@ const Navbar = () => {
            <Image
   src="/logo/logo.png"  // ✅ Start with `/` not `./`
   alt="Logo"
-  width={120}
+  width={60}
   height={20}
   className="z-60"
 />

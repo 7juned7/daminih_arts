@@ -3,7 +3,7 @@ import { FaWhatsapp } from "react-icons/fa";
 
 const WhatsAppButton = () => {
     const phoneNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER;
-
+console.log(phoneNumber)
   if (!phoneNumber) return null; 
 
   return (

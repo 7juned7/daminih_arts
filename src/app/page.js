@@ -1,7 +1,8 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const products = [
   {
@@ -24,22 +25,92 @@ const products = [
   },
 ];
 
+const bannerImages = [
+  '/images/banner1.jpg',
+  '/images/banner2.jpg',
+  '/images/banner3.jpg',
+];
+
+const slideUp = {
+  hidden: { opacity: 0, y: 50 },
+  visible: (custom) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay: custom * 0.2, duration: 0.5 },
+  }),
+};
+
 const Page = () => {
+  const [index, setIndex] = useState(0);
+  const [direction, setDirection] = useState(1); // 1 for next, -1 for prev
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setDirection(1);
+      setIndex((prev) => (prev + 1) % bannerImages.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const variants = {
+    enter: (direction) => ({
+      x: direction > 0 ? 300 : -300,
+      opacity: 0,
+    }),
+    center: {
+      x: 0,
+      opacity: 1,
+      transition: { duration: 0.6 },
+    },
+    exit: (direction) => ({
+      x: direction < 0 ? 300 : -300,
+      opacity: 0,
+      transition: { duration: 0.6 },
+    }),
+  };
+
   return (
     <div className="min-h-screen bg-white py-12 px-6">
+      {/* 🔼 Sliding Carousel Banner */}
+      <div className="w-full mb-12 overflow-hidden rounded-xl shadow-md aspect-[6/1] relative">
+        <AnimatePresence initial={false} custom={direction}>
+          <motion.img
+            key={bannerImages[index]}
+            src={bannerImages[index]}
+            alt="Banner"
+            custom={direction}
+            variants={variants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            className="absolute w-full h-full object-cover"
+          />
+        </AnimatePresence>
+      </div>
+
+      {/* 🔽 Product Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-        {products.map((product) => (
-          <Link href={`/${product.slug}`} key={product.name}>
-            <div className="cursor-pointer border p-4 rounded-xl shadow-md hover:shadow-lg transition">
-              <img
-                src={product.image}
-                alt={product.name}
-                className="w-full h-48 object-cover rounded-lg mb-4"
-              />
-              <h2 className="text-xl text-yellow-600 font-semibold">{product.name}</h2>
-              <p className="text-gray-600">{product.description}</p>
-            </div>
-          </Link>
+        {products.map((product, i) => (
+          <motion.div
+            key={product.name}
+            custom={i}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={slideUp}
+          >
+            <Link href={`/${product.slug}`}>
+              <div className="cursor-pointer border p-4 rounded-xl shadow-md hover:shadow-lg transition">
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  className="w-full h-48 object-cover rounded-lg mb-4"
+                />
+                <h2 className="text-xl text-yellow-600 font-semibold">{product.name}</h2>
+                <p className="text-gray-600">{product.description}</p>
+              </div>
+            </Link>
+          </motion.div>
         ))}
       </div>
     </div>
