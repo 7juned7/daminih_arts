@@ -6,6 +6,7 @@ import Footer from "@/Components/Footer";
 import { CartProvider } from "@/context/CartContext";
 import { ProductsProvider } from "@/context/productContext";
 import Script from "next/script";
+import WhatsAppButton from "@/Components/WhatsAppButton";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -48,6 +49,7 @@ export default function RootLayout({ children }) {
           <CartProvider>
             <Navbar />
             {children}
+              <WhatsAppButton />
             <Footer />
           </CartProvider>
         </ProductsProvider>

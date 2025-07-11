@@ -1,12 +1,14 @@
 "use client";
+import { toast } from "@/utils/toast"; // adjust path if needed
 
 import { useCart } from "@/context/CartContext";
 import Image from "next/image";
 import Script from "next/script";
 import { useState } from "react";
+import { Router } from "next/router";
 
 const Checkout = () => {
-  const { cartItems, total } = useCart();
+  const { cartItems, total ,clearCart} = useCart();
 
   const [form, setForm] = useState({
     name: "",
@@ -19,58 +21,92 @@ const Checkout = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+const validateForm = () => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const phoneRegex = /^[6-9]\d{9}$/;
+
+  if (!form.name.trim()) {
+    toast.show("Please enter your full name.", "error");
+    return false;
+  }
+
+  if (!emailRegex.test(form.email)) {
+    toast.show("Please enter a valid email address.", "error");
+    return false;
+  }
+
+  if (!phoneRegex.test(form.phone)) {
+    toast.show("Please enter a valid 10-digit phone number.", "error");
+    return false;
+  }
+
+  if (!form.address.trim()) {
+    toast.show("Please enter your delivery address.", "error");
+    return false;
+  }
+
+  return true;
+};
+
+
 const handleSubmit = async () => {
   if (!form.name || !form.email || !form.phone || !form.address) {
     alert("Please fill in all fields");
     return;
   }
-console.log(process.env.NEXT_PUBLIC_BACKEND_URL)
+  if (!validateForm()) return;
+
   try {
-    // 1. Create order on backend
+    // Create order on backend
     const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/create-order`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ amount: total * 100 }), // Amount must be in paisa
+      body: JSON.stringify({ amount: total * 100 }), // in paisa
     });
 
-    if (!res.ok) {
-      throw new Error("Failed to create Razorpay order");
-    }
+    if (!res.ok) throw new Error("Failed to create Razorpay order");
 
     const orderData = await res.json();
 
-    // 2. Check Razorpay loaded
     if (!window.Razorpay) {
-      alert("Razorpay SDK not loaded. Please try again.");
+     toast.show("Razorpay SDK not loaded. Please try again.", "error");
       return;
     }
 
     const options = {
-      key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID, // ✅ Use test key
-      amount: orderData.amount, // in paisa
+      key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
+      amount: orderData.amount,
       currency: orderData.currency,
       name: "My Store",
       description: "Order Payment",
       order_id: orderData.id,
       handler: async function (response) {
-        // 3. Verify payment on backend
-        const verifyRes = await fetch("http://localhost:3001/verify-payment", {
+        const verifyRes = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/verify-payment`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             razorpay_order_id: response.razorpay_order_id,
             razorpay_payment_id: response.razorpay_payment_id,
             razorpay_signature: response.razorpay_signature,
+            name: form.name,
+            email: form.email,
+            phone: form.phone,
+            address: form.address,
+            cartItems, // make sure cartItems is accessible here
+            total: total * 100,
           }),
         });
 
         const result = await verifyRes.json();
 
         if (result.status === "success") {
-          alert("✅ Payment Successful!");
-          // TODO: reset form, clear cart, redirect etc.
+        toast.show("✅ Payment Successful!", "success");
+          clearCart(); setForm({name: "",
+    email: "",
+    phone: "",
+    address: ""}); Router.push("/success") 
         } else {
-          alert("❌ Payment verification failed!");
+         toast.show("❌ Payment verification failed!", "error");
         }
       },
       prefill: {
@@ -92,7 +128,7 @@ console.log(process.env.NEXT_PUBLIC_BACKEND_URL)
     rzp.open();
   } catch (error) {
     console.error("Checkout Error:", error);
-    alert("Something went wrong during checkout.");
+    toast.show("Something went wrong during checkout.", "error");
   }
 };
 
@@ -101,7 +137,7 @@ console.log(process.env.NEXT_PUBLIC_BACKEND_URL)
 
   return (
     <main className="bg-[#fffdf5] min-h-screen py-12 px-4 md:px-20 font-orangegummy tracking-[1px]">
-      <h1 className="text-4xl md:text-5xl text-yellow-600 text-center mb-10">
+      <h1 className="text-2xl md:text-3xl text-yellow-600 text-center mb-10">
         Checkout
       </h1>
 

@@ -49,7 +49,7 @@ const addToCart = (product) => {
     toast.show(updated ? "Quantity updated in cart!" : "Added to cart!", "success");
   }, 0);
 };
-
+  const clearCart = () => setCartItems([]);
 
   const updateQuantity = (id, delta) => {
   setCartItems((prev) =>
@@ -84,7 +84,7 @@ const addToCart = (product) => {
 
   return (
     <CartContext.Provider
-      value={{ cartItems, addToCart, updateQuantity, removeItem, total }}
+      value={{ cartItems, addToCart, updateQuantity, removeItem, total ,clearCart}}
     >
       {children}
     </CartContext.Provider>

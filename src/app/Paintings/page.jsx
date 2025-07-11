@@ -15,7 +15,7 @@ const Page = () => {
     <main className="bg-[#fffdf5]   py-12 px-6 md:px-20">
       <div className="max-w-4xl mx-auto" >
 
-      <h1 className="text-4xl md:text-6xl text-yellow-600  text-center mb-8">
+      <h1 className="text-2xl md:text-3xl text-yellow-600  text-center mb-8">
         Paintings
       </h1>
 
