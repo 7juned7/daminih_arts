@@ -72,7 +72,7 @@ const Page = () => {
   return (
     <div className="min-h-screen bg-white py-12 px-6">
       {/* 🔼 Sliding Carousel Banner */}
-      <div className="w-full mb-12 overflow-hidden rounded-xl shadow-md aspect-[6/1] relative">
+      <div className="w-full mb-12 overflow-hidden rounded-xl shadow-md aspect-[4/1] relative">
         <AnimatePresence initial={false} custom={direction}>
           <motion.img
             key={bannerImages[index]}
