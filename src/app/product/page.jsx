@@ -11,42 +11,35 @@ import AnimatedButton from "@/utils/button";
 
 const ProductPage = () => {
   const { id } = useParams();
-  
-const { products, loading } = useProducts();
-const { addToCart } = useCart();
-const [zoomImage, setZoomImage] = useState(null);
 
-const scrollRef = useRef(null);
-const [activeIndex, setActiveIndex] = useState(0);
+  const { products, loading, selectedProduct } = useProducts();
+  const { addToCart } = useCart();
 
+  const [zoomImage, setZoomImage] = useState(null);
+  const [imgLoaded, setImgLoaded] = useState(false);
+  const [zoomImgLoaded, setZoomImgLoaded] = useState(false);
 
-if (loading) return <p className="text-center py-20">Loading...</p>;
+  const scrollRef = useRef(null);
+  const [activeIndex, setActiveIndex] = useState(0);
 
-const product = products.find((p) => p.id.toString() === id);
-if (!product) return notFound();
-useEffect(() => {
-  const el = scrollRef.current;
-  if (!el) return;
+  // ✅ move this up — BEFORE any return
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
 
-  const handleScroll = () => {
-    const index = Math.round(el.scrollLeft / el.clientWidth);
-    setActiveIndex(index);
-  };
+    const handleScroll = () => {
+      const index = Math.round(el.scrollLeft / el.clientWidth);
+      setActiveIndex(index);
+    };
 
-  el.addEventListener("scroll", handleScroll, { passive: true });
-  return () => el.removeEventListener("scroll", handleScroll);
-}, []);
-const scrollTo = (index) => {
-  const el = scrollRef.current;
-  if (!el) return;
+    el.addEventListener("scroll", handleScroll, { passive: true });
+    return () => el.removeEventListener("scroll", handleScroll);
+  }, []);
 
-  const width = el.clientWidth;
-  el.scrollTo({
-    left: index * width,
-    behavior: "smooth",
-  });
-  setActiveIndex(index); // Update manually on click
-};
+  if (loading) return <p className="text-center py-20">Loading...</p>;
+
+  const product = selectedProduct;
+  if (!product) return notFound();
   return (
     <main className="min-h-screen max-w-6xl m-auto bg-white py-12 px-4 md:px-20 font-orangegummy tracking-[1px]">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
@@ -57,25 +50,35 @@ const scrollTo = (index) => {
   style={{ scrollbarWidth: "none" }}
 >
   {product.images?.map((img, idx) => (
-    <div key={idx} className="relative snap-center shrink-0 w-full h-full">
+   <div key={idx} className="relative snap-center shrink-0 w-full h-full">
+      {!imgLoaded && (
+        <div className="absolute inset-0 z-10 flex items-center justify-center bg-white">
+          <div className="w-10 h-10 border-4 border-gray-300 border-t-black rounded-full animate-spin" />
+        </div>
+      )}
+
       <Image
         src={img}
         alt={`${product.title} ${idx + 1}`}
         width={800}
         height={600}
-        className="w-full h-full object-cover"
+        className="w-full h-full object-contain transition-opacity duration-500"
+        style={{ opacity: imgLoaded ? 1 : 0 }}
+        onLoadingComplete={() => setImgLoaded(true)}
         onError={({ currentTarget }) => {
-  currentTarget.onerror = null;
-  currentTarget.src = "/fallback.jpg";
-}}
-        priority={idx === 0}
+          currentTarget.onerror = null;
+          currentTarget.src = "/fallback.jpg";
+          setImgLoaded(true);
+        }}
+        priority
       />
+
       {/* Zoom icon */}
       <button
         onClick={() => setZoomImage(img)}
         className="absolute bottom-4 right-4 bg-white p-2 rounded-full shadow-md hover:scale-110 transition"
       >
-         <ZoomIn className="w-5 h-5 cursor-pointer text-gray-700" />
+        <ZoomIn className="w-5 h-5 cursor-pointer text-gray-700" />
       </button>
     </div>
   ))}
@@ -117,13 +120,13 @@ const scrollTo = (index) => {
 {product.offer ? (
   <div className="flex items-center gap-2 mt-2">
     {/* Original Price */}
-    <p className="text-gray-400 text-lg md:text-xl line-through flex items-center">
+    <p className="text-red-400 text-lg md:text-xl line-through flex items-center">
       <IndianRupee className="w-5 h-5" />
       {product.price}
     </p>
 
     {/* Discounted Price */}
-    <p className="text-green-600 text-lg md:text-xl font-bold flex items-center">
+    <p className="text-black text-lg md:text-xl font-bold flex items-center">
       <IndianRupee className="w-5 h-5" />
       {product.offer}
     </p>
@@ -144,23 +147,44 @@ const scrollTo = (index) => {
       </div>
      {zoomImage && (
   <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 backdrop-blur-sm overflow-auto">
-  <div className="relative max-w-[90vw] max-h-[90vh] overflow-auto">
-    <Image
-      src={zoomImage}
-      alt="Zoomed Image"
-      width={1000}
-      height={800}
-      className="object-contain w-full h-full border-[5px] border-white"
-    />
-    <button
-      onClick={() => setZoomImage(null)}
-      className="absolute top-2 right-2 bg-white p-2 rounded-full shadow hover:bg-gray-100"
-    >
-      <X className="w-5 h-5 cursor-pointer text-gray-800" />
-    </button>
-  </div>
-</div>
+    <div className="relative max-w-[90vw] max-h-[90vh] overflow-auto">
 
+      {/* Loader */}
+      {!zoomImgLoaded && (
+        <div className="absolute inset-0 flex items-center justify-center bg-white/70 z-10">
+          <div className="w-12 h-12 border-4 border-gray-300 border-t-yellow-500 rounded-full animate-spin" />
+        </div>
+      )}
+
+      {/* Image */}
+      <Image
+        src={zoomImage}
+        alt="Zoomed Image"
+        width={1000}
+        height={800}
+        className={`object-contain w-full h-full border-[5px] border-white transition-opacity duration-500 ${
+          imgLoaded ? 'opacity-100' : 'opacity-0'
+        }`}
+        onLoadingComplete={() =>  setZoomImgLoaded(true)}
+        onError={({ currentTarget }) => {
+          currentTarget.onerror = null;
+          currentTarget.src = "/fallback.jpg";
+           setZoomImgLoaded(true);
+        }}
+      />
+
+      {/* Close Button */}
+      <button
+        onClick={() => {
+          setZoomImage(null);
+          setZoomImgLoaded(false); // Reset for next image
+        }}
+        className="absolute top-2 right-2 bg-white p-2 rounded-full shadow hover:bg-gray-100 z-20"
+      >
+        <X className="w-5 h-5 text-gray-800" />
+      </button>
+    </div>
+  </div>
 )}
 
 

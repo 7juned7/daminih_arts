@@ -11,25 +11,24 @@ export const toast = (() => {
     return container;
   };
 
-  const show = (message, type = "default", duration = 3000) => {
-    const container = createContainer();
+ const show = (message, type = "default", duration = 3000) => {
+  const container = createContainer();
 
-    const toast = document.createElement("div");
-    toast.className = `
-      px-4 py-2 min-w-[200px] rounded shadow-lg text-sm font-medium animate-fade-in
-      ${type === "success" ? "bg-yellow-500 text-white" : ""}
-      ${type === "error" ? "bg-red-500 text-white" : ""}
-      ${type === "default" ? "bg-gray-800 text-white" : ""}
-    `;
-    toast.textContent = message;
+  const toast = document.createElement("div");
+  toast.className = `
+    px-4 py-2 min-w-[200px] rounded shadow-lg text-sm font-medium animate-fade-in
+    bg-black text-white
+  `;
+  toast.textContent = message;
 
-    container.appendChild(toast);
+  container.appendChild(toast);
 
-    setTimeout(() => {
-      toast.classList.add("animate-fade-out");
-      setTimeout(() => toast.remove(), 400);
-    }, duration);
-  };
+  setTimeout(() => {
+    toast.classList.add("animate-fade-out");
+    setTimeout(() => toast.remove(), 400);
+  }, duration);
+};
+
 
   return { show };
 })();

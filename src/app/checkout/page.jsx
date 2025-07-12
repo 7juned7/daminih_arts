@@ -51,7 +51,7 @@ const validateForm = () => {
 
 const handleSubmit = async () => {
   if (!form.name || !form.email || !form.phone || !form.address) {
-    alert("Please fill in all fields");
+    toast.show("Please fill all details");
     return;
   }
   if (!validateForm()) return;
@@ -136,20 +136,20 @@ const handleSubmit = async () => {
 
 
   return (
-    <main className="bg-[#fffdf5] min-h-screen py-12 px-4 md:px-20 font-orangegummy tracking-[1px]">
-      <h1 className="text-2xl md:text-3xl text-yellow-600 text-center mb-10">
+    <main className=" min-h-screen py-12 px-4 md:px-20 font-orangegummy tracking-[1px]">
+      <h1 className="text-2xl md:text-3xl text-black text-center mb-10">
         Checkout
       </h1>
 
       {/* Customer Info */}
       <div className="bg-white p-6 rounded-lg shadow-md mb-10 space-y-4">
-        <h2 className="text-yellow-700 text-xl mb-4">Customer Details</h2>
+        <h2 className="text-black text-xl mb-4">Customer Details</h2>
 
         <input
           type="text"
           name="name"
           placeholder="Full Name"
-          className="w-full border text-black border-yellow-200 rounded px-4 py-2"
+          className="w-full border text-black border-black rounded px-4 py-2"
           value={form.name}
           onChange={handleChange}
         />
@@ -157,7 +157,7 @@ const handleSubmit = async () => {
           type="email"
           name="email"
           placeholder="Email"
-          className="w-full border text-black border-yellow-200 rounded px-4 py-2"
+          className="w-full border text-black border-black rounded px-4 py-2"
           value={form.email}
           onChange={handleChange}
         />
@@ -165,14 +165,14 @@ const handleSubmit = async () => {
           type="tel"
           name="phone"
           placeholder="Phone Number"
-          className="w-full border text-black border-yellow-200 rounded px-4 py-2"
+          className="w-full border text-black border-black rounded px-4 py-2"
           value={form.phone}
           onChange={handleChange}
         />
         <textarea
           name="address"
           placeholder="Delivery Address"
-          className="w-full border text-black border-yellow-200 rounded px-4 py-2"
+          className="w-full border text-black border-black rounded px-4 py-2"
           rows={3}
           value={form.address}
           onChange={handleChange}
@@ -181,7 +181,7 @@ const handleSubmit = async () => {
 
       {/* Order Summary */}
       <div className="bg-white p-6 rounded-lg shadow-md mb-10 space-y-4">
-        <h2 className="text-yellow-700 text-xl mb-4">Order Summary</h2>
+        <h2 className="text-black text-xl mb-4">Order Summary</h2>
 
         {cartItems.map((item) => (
           <div key={item.id} className="flex items-center gap-4">
@@ -193,18 +193,18 @@ const handleSubmit = async () => {
               className="rounded"
             />
             <div className="flex-1">
-              <p className="text-sm text-yellow-700">{item.title}</p>
+              <p className="text-sm text-black">{item.title}</p>
               <p className="text-xs text-gray-500">
                 {item.quantity} × ₹{item.price}
               </p>
             </div>
-            <p className="text-sm text-yellow-700">
+            <p className="text-sm text-black">
               ₹{item.quantity * item.price}
             </p>
           </div>
         ))}
 
-        <div className="flex justify-between pt-4 border-t mt-4 text-lg text-yellow-700">
+        <div className="flex justify-between pt-4 border-t mt-4 text-lg text-black">
           <span>Total:</span>
           <span>₹{total}</span>
         </div>
@@ -213,7 +213,7 @@ const handleSubmit = async () => {
       <div className="text-center">
         <button
           onClick={handleSubmit}
-          className="bg-yellow-500 text-white px-6 py-3 rounded-lg hover:bg-yellow-600 transition"
+          className="bg-black cursor-pointer text-white px-6 py-3 rounded-lg hover:bg-gray-600 transition"
         >
           Place Order
         </button>

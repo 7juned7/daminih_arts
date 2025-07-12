@@ -8,8 +8,8 @@ const Page = () => {
   const { cartItems, updateQuantity, removeItem, total } = useCart();
 
   return (
-    <main className="bg-[#fffdf5] min-h-screen py-12 px-4 md:px-20 font-orangegummy tracking-[1px]">
-      <h1 className="text-2xl md:text-3xl text-yellow-600  text-center mb-10">
+    <main className=" min-h-screen py-12 px-4 md:px-20 font-orangegummy tracking-[1px]">
+      <h1 className="text-2xl md:text-3xl text-black  text-center mb-10">
         Your Cart
       </h1>
 
@@ -18,7 +18,7 @@ const Page = () => {
       ) : (
         <div className="space-y-6">
           {/* Total Items */}
-          <p className="text-right text-sm text-yellow-700">
+          <p className="text-right text-sm text-black">
             Total Items:{" "}
             <span className="">
               {cartItems.reduce((sum, item) => sum + item.quantity, 0)}
@@ -29,7 +29,7 @@ const Page = () => {
           {cartItems.map((item) => (
             <div
               key={item.id}
-              className="flex flex-col sm:flex-row items-center sm:items-start border border-yellow-200 rounded-xl p-4 gap-4 bg-white"
+              className="flex flex-col sm:flex-row items-center sm:items-start border border-black rounded-xl p-4 gap-4 bg-white"
             >
               <Image
                 src={item.images[0]}
@@ -39,28 +39,35 @@ const Page = () => {
                 className="rounded-xl object-cover w-full sm:w-[100px] sm:h-[100px]"
               />
               <div className="flex-1 w-full">
-                <h2 className="text-yellow-700  text-sm">{item.title}</h2>
-                <p className="text-xs text-gray-600">₹{item.price} each</p>
+                <h2 className="text-black  text-sm">{item.title}</h2>
+               {item.offer ? (
+  <div className="flex items-center gap-2">
+    <p className="text-xs text-red-500 line-through">₹{item.price}</p>
+    <p className="text-xs text-black font-semibold">₹{item.offer} each</p>
+  </div>
+) : (
+  <p className="text-xs text-gray-600">₹{item.price} each</p>
+)}
 
                 <div className="flex flex-wrap items-center gap-2 mt-2">
                   <button
                     onClick={() => updateQuantity(item.id, -1)}
                     disabled={item.quantity <= 1}
-                    className={`px-2 py-1 rounded text-white transition 
+                    className={`px-2 py-1 cursor-pointer w-8 h-8 rounded text-white transition 
                       ${
                         item.quantity <= 1
                           ? "bg-gray-300 cursor-not-allowed"
-                          : "bg-yellow-300 hover:bg-yellow-400"
+                          : "bg-black hover:bg-gray-800"
                       }`}
                   >
                     -
                   </button>
 
-                  <span className="px-2">{item.quantity}</span>
+                  <span className="px-2 text-black">{item.quantity}</span>
 
                   <button
                     onClick={() => updateQuantity(item.id, 1)}
-                    className="px-2 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600"
+                    className=" cursor-pointer w-8 h-8 bg-black text-white rounded hover:bg-gray-800"
                   >
                     +
                   </button>
@@ -74,21 +81,21 @@ const Page = () => {
                 </div>
               </div>
 
-              <div className="text-yellow-700  text-right w-full sm:w-auto">
-                ₹{item.price * item.quantity}
+              <div className="text-black  text-right w-full sm:w-auto">
+              ₹{(item.offer ?? item.price) * item.quantity}
               </div>
             </div>
           ))}
 
           {/* Total Price */}
-          <div className="flex justify-between items-center mt-8 border-t pt-4 text-lg  text-yellow-700">
+          <div className="flex justify-between items-center mt-8 border-t pt-4 text-lg  text-black">
             <span>Total</span>
             <span>₹{total}</span>
           </div>
 
           {/* Checkout Button */}
           <div className="text-center mt-6">
-            <Link href="/checkout" className="bg-yellow-500 text-white font-orangegummy w-full sm:w-auto px-6 py-3 rounded-lg hover:bg-yellow-600 transition">
+            <Link href="/checkout" className="bg-black text-white  w-full sm:w-auto px-6 py-3 rounded-lg hover:bg-gray-900 transition">
               Proceed to Checkout
             </Link>
           </div>

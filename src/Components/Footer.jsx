@@ -30,13 +30,13 @@ const Footer = () => {
         <section aria-label="Social Media">
           <h3 className="text-yellow-600 mb-3 font-semibold">📱 Connect with Us</h3>
           <ul className="space-y-1">
-            <li><a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:underline">Instagram</a></li>
-            <li><a href="https://snapchat.com" target="_blank" rel="noopener noreferrer" className="hover:underline">Snapchat</a></li>
-            <li><a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="hover:underline">Facebook</a></li>
-            <li><a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="hover:underline">Twitter</a></li>
+            <li><a href="https://www.instagram.com/da_mini_arts/" target="_blank" rel="noopener noreferrer" className="hover:underline">Instagram</a></li>
+  
+            <li><a href="https://www.facebook.com/damini.verma.9" target="_blank" rel="noopener noreferrer" className="hover:underline">Facebook</a></li>
+     
           </ul>
           <p className="mt-4 text-xs">
-            📧 Contact us at <a href="mailto:neha.doodles@gmail.com" className="underline">neha.doodles@gmail.com</a>
+            📧 Contact us at <a href="mailto:daminiharts@gmail.com" className="underline">daminiharts@gmail.com</a>
           </p>
         </section>
       </div>

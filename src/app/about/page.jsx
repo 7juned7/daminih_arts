@@ -4,30 +4,31 @@ import Link from "next/link";
 
 const AboutPage = () => {
   return (
-    <main className=" bg-[#fffdf5] mx-auto  px-4 py-10 text-gray-800 font-sans">
+    <main className=" mx-auto  px-4 py-10 text-gray-800 font-sans">
         <div className="max-w-5xl m-auto  space-y-12 " >
 
       <section>
-        <h1 className="text-4xl font-orangegummy text-yellow-600 mb-4">ABOUT DAMINIH ARTS</h1>
+        <h1 className="text-4xl font-orangegummy text-black mb-4">ABOUT DAMINIH ARTS</h1>
         <p className="text-sm ">
-It all started with a T-shirt painting that she made for her sister and who knew that a birthday gift for her sister would give her an amazing venture idea.
-“I need to leave my job”, she thought to herself. Part time painting and full time job was not something that was quite enough to quench her thirst for art. And that was the inception of Daminih Arts. 
+What started as a hand-painted T-shirt for her sister turned into a life-changing passion. Driven by a love for color and creativity, Daminih left her full-time job to follow her dream—and Daminih Arts was born. 
           <br /><br />
-         . Leaving her full time and well paying job was a tough decision to make, but it was necessary so she could find herself. She wanted to do more, she wanted to be more, she wished to spread her wings and fly and not be caged forever. She wanted to paint till her hands couldn't any more. She wanted to paint till her monochromatic dreams become full of colours. She wanted to paint till the whole world recognizes and appreciates her art. 
+        From T-shirts to bags, walls to wood, if it can be painted, she’s painted it. Inspired by nature and fueled by purpose, her journey has been one of courage, color, and endless creativity.
+
           <br /><br />
-          “I wanted to paint, that’s all. I don’t know how, where and on what”, she said. 
-          <br /><br />No wonder she was a fan of the great Van Gogh. She figuratively inherited his craze. 
-          <br /><br />She started with t-shirts then also began painting on bags, purses, pouches, walls, wood i. e pretty much everything that could be painted on, and she has never stopped since then. Today she has hundreds of happy customers and many more to come. The journey hasn't been easy at all for her, being all on her own but she found a way to crawl towards her dream through all the obstacles and challenges because she never lost sight of her dream.
-          <br /><br />Today Daminih has established herself in T-shirt Painting, Painting Workshops, Wall Paintings and Illustrations.
+          Today, Daminih Arts offers: 
+          <br /><br />Custom T-shirt Painting
+          <br /><br />Wall Murals
+          <br /><br />Painting Workshops
+          <br /><br />Illustrations
         </p>
 
-        <blockquote className="mt-4 italic font-orangegummy text-yellow-600 font-medium">
+        <blockquote className="mt-4 italic font-orangegummy text-black font-medium">
           “Give your dream a chance and see what it gives you back” — Daminih
         </blockquote>
       </section>
 
       <section>
-        <h2 className="text-3xl  font-orangegummy text-yellow-600 mb-3">HANDMADE PRODUCTS</h2>
+        <h2 className="text-3xl  font-orangegummy text-black mb-3">HANDMADE PRODUCTS</h2>
         <p className="text-sm ">
     Every handmadeproduct is special because it has emotions and love woven into it. People mostly buy our products to gift them to their loved ones or get a special design made for themselves whichis of emotional significance to them such as a pet portrait, a loving person’s portrait as a surprise gift, cutecouplesdesigns for their partner. People also buy our products for special days like mother’sday, women’s day, valentines day and many more emotions get attached with every piece of art. 
           <br /><br />
@@ -42,7 +43,7 @@ It all started with a T-shirt painting that she made for her sister and who knew
       </section>
 
       <section>
-        <h2 className="text-2xl font-orangegummy text-yellow-600 mb-3">WORKSHOPS</h2>
+        <h2 className="text-2xl font-orangegummy text-black mb-3">WORKSHOPS</h2>
         <p className="text-sm leading-7">
           Are you a person who is looking to explore something new and creative to break the shackles of your same old daily routine life??
           <br /><br />
@@ -60,7 +61,7 @@ It all started with a T-shirt painting that she made for her sister and who knew
       </section>
 
       <section>
-        <h2 className="text-2xl font-orangegummy text-yellow-600 mb-3">WALL PAINTINGS</h2>
+        <h2 className="text-2xl font-orangegummy text-black mb-3">WALL PAINTINGS</h2>
         <p className="text-sm leading-7">
          Big wall, wooohhh!!! Big space to paint. It’s always exciting to see a big wall and more exciting when you get a chance to paint on it. Plain old painted walls are so boring and dull. Wall paintings are a forgotten art which once used to give royals and kings the feelings of benevolence, calmness, inspiration etc. Your walls can shape your ideas and your thoughts. Wall paintings also set the mood for you and you will just love it when you come back home from a tiring day and see all the beautiful walls and relax, have tea or coffee. The serenity of this experience cannot be explained in words and you should definitely try it to know what it feels like. You can call us if you want to fill your home or work place with memories. You can add a beautiful landscape in your living room or turn your kid’s room intoan animated world. We would love to do it for you.
           <br /><br />
@@ -69,15 +70,15 @@ It all started with a T-shirt painting that she made for her sister and who knew
       </section>
 
       <section>
-        <h2 className="text-2xl font-orangegummy text-yellow-600 mb-3">CONTACT US</h2>
+        <h2 className="text-2xl font-orangegummy text-black mb-3">CONTACT US</h2>
         <p className="text-sm leading-7">
           We'd love to hear from you — whether it's a question, custom request, or just some love.
         </p>
         <ul className="mt-3 text-sm space-y-1">
-          <li>📧 Email: <a href="mailto:contact@daminiarts.com" className="text-blue-600 underline">contact@daminiarts.com</a></li>
-          <li>📱 Phone: <a href="tel:+91XXXXXXXXXX" className="text-blue-600 underline">+91 XXXXXXXXXX</a></li>
-          <li>📸 Instagram: <a href="https://instagram.com/daminiharts" className="text-blue-600 underline" target="_blank">Instagram Profile</a></li>
-          <li>📘 Facebook: <a href="https://facebook.com/daminiharts" className="text-blue-600 underline" target="_blank">Facebook Page</a></li>
+          <li>📧 Email: <a href="mailto:daminiharts@gmail.com " className="text-blue-600 underline">daminiharts@gmail.com </a></li>
+          <li>📱 Phone: <a href="tel:+918108894701" className="text-blue-600 underline">+91 8108894701</a></li>
+          <li>📸 Instagram: <a href="https://www.instagram.com/da_mini_arts/" className="text-blue-600 underline" target="_blank">da_mini_arts</a></li>
+          <li>📘 Facebook: <a href="https://www.facebook.com/damini.verma.9" className="text-blue-600 underline" target="_blank">da_mini_arts </a></li>
         </ul>
 
         

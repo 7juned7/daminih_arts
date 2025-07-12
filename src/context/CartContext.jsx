@@ -77,10 +77,10 @@ const addToCart = (product) => {
   }, 0);
 };
 
-  const total = cartItems.reduce(
-    (acc, item) => acc + Number(item.price) * item.quantity,
-    0
-  );
+const total = cartItems.reduce((sum, item) => {
+  const price = item.offer ?? item.price; // Use offer if available
+  return sum + price * item.quantity;
+}, 0);
 
   return (
     <CartContext.Provider
