@@ -29,9 +29,7 @@ useEffect(() => {
   if (!el) return;
 
   const handleScroll = () => {
-    const scrollLeft = el.scrollLeft;
-    const width = el.clientWidth;
-    const index = Math.round(scrollLeft / width);
+    const index = Math.round(el.scrollLeft / el.clientWidth);
     setActiveIndex(index);
   };
 
@@ -66,9 +64,10 @@ const scrollTo = (index) => {
         width={800}
         height={600}
         className="w-full h-full object-cover"
-        onError={(e) => {
-          e.currentTarget.src = "/fallback.jpg";
-        }}
+        onError={({ currentTarget }) => {
+  currentTarget.onerror = null;
+  currentTarget.src = "/fallback.jpg";
+}}
         priority={idx === 0}
       />
       {/* Zoom icon */}
@@ -112,26 +111,27 @@ const scrollTo = (index) => {
 </AnimatedButton>
 
         </div>
-      </div>{zoomImage && (
+      </div>
+     {zoomImage && (
   <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 backdrop-blur-sm">
-  <div className="relative max-w-[90vw] max-h-[90vh]">
-    <Image
-      src={zoomImage}
-      alt="Zoomed Image"
-      width={1000}
-      height={800}
-      className="object-contain w-full h-full border-[5px] border-white"
-    />
-    <button
-      onClick={() => setZoomImage(null)}
-      className="absolute top-2 right-2 bg-white p-2 rounded-full shadow hover:bg-gray-100"
-    >
-       <X className="w-5 h-5 text-gray-800 cursor-pointer" />
-    </button>
+    <div className="relative max-w-[90vw] max-h-[90vh]">
+      <Image
+        src={zoomImage}
+        alt="Zoomed Image"
+        width={1000}
+        height={800}
+        className="object-contain w-full h-full border-[5px] border-white"
+      />
+      <button
+        onClick={() => setZoomImage(null)}
+        className="absolute top-2 right-2 bg-white p-2 rounded-full shadow hover:bg-gray-100"
+      >
+        <X className="w-5 h-5 cursor-pointer text-gray-800" />
+      </button>
+    </div>
   </div>
-</div>
-
 )}
+
 
       {/* Hide scrollbar for Chrome */}
       <style jsx>{`

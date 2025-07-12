@@ -1,15 +1,8 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-
-const bannerImages = [
-  "/banner/banner1.jpeg",
-  "/banner/banner2.jpeg",
-  "/banner/banner3.jpeg",
-  "/banner/banner4.jpeg",
-  "/banner/banner5.jpeg"
-];
+import Image from 'next/image';
 
 const variants = {
   enter: (direction) => ({
@@ -19,22 +12,27 @@ const variants = {
   center: {
     x: 0,
     opacity: 1,
-    transition: {
-      duration: 0.5,
-      ease: "easeOut",
-    },
+    transition: { duration: 0.6, ease: 'easeOut' },
   },
   exit: (direction) => ({
     x: direction < 0 ? 1000 : -1000,
     opacity: 0,
-    transition: {
-      duration: 0.5,
-      ease: "easeIn",
-    },
+    transition: { duration: 0.5, ease: 'easeIn' },
   }),
 };
 
 const Banner = () => {
+  const bannerImages = useMemo(
+    () => [
+      '/banner/banner1.jpeg',
+      '/banner/banner2.jpeg',
+      '/banner/banner3.jpeg',
+      '/banner/banner4.jpeg',
+      '/banner/banner5.jpeg',
+    ],
+    []
+  );
+
   const [index, setIndex] = useState(0);
   const [direction, setDirection] = useState(1);
 
@@ -43,27 +41,36 @@ const Banner = () => {
       setDirection(1);
       setIndex((prev) => (prev + 1) % bannerImages.length);
     }, 4000);
+
     return () => clearInterval(interval);
-  }, []);
+  }, [bannerImages.length]);
 
   return (
-    <div className="w-full mb-12 overflow-hidden shadow-md aspect-[12/5] relative">
+    <div className="relative w-full aspect-[12/5] overflow-hidden shadow-md mb-12">
       <AnimatePresence initial={false} custom={direction}>
-        <motion.img
+        <motion.div
           key={bannerImages[index]}
-          src={bannerImages[index]}
-          alt="Banner"
           custom={direction}
           variants={variants}
           initial="enter"
           animate="center"
           exit="exit"
-          className="absolute w-full h-full object-cover z-0"
-        />
+          className="absolute w-full h-full"
+        >
+          <Image
+            src={bannerImages[index]}
+            alt={`Banner ${index + 1}`}
+            fill
+            priority={index === 0}
+            placeholder="empty" // You can use 'blur' if you provide a blurred image
+            sizes="(max-width: 768px) 100vw, 100vw"
+            className="object-cover"
+          />
+        </motion.div>
       </AnimatePresence>
 
-      {/* Black overlay */}
-      <div className="absolute inset-0 bg-black/40 z-10 pointer-events-none" />
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-black/30 z-10 pointer-events-none" />
     </div>
   );
 };
