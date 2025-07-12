@@ -25,10 +25,12 @@ const formatted = data.map((item, idx) => ({
   title: item.title,
   description: item.description,
   price: item.price,
+  offer:item.offer,
+  aboutProduct:item.aboutProduct,
   images: [item.image1, item.image2, item.image3]
     .filter(Boolean)
     .map(formatDriveLink),
-  type: item.type || "product",
+  type: item.type,
 }));
 
 console.log(formatted)

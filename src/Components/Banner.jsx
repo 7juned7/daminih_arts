@@ -29,6 +29,7 @@ const Banner = () => {
       '/banner/banner3.jpeg',
       '/banner/banner4.jpeg',
       '/banner/banner5.jpeg',
+      '/banner/banner6.jpeg',
     ],
     []
   );
@@ -46,7 +47,7 @@ const Banner = () => {
   }, [bannerImages.length]);
 
   return (
-    <div className="relative w-full aspect-[12/5] overflow-hidden shadow-md mb-12">
+    <div className="relative w-full aspect-[12/5] overflow-hidden shadow-md">
       <AnimatePresence initial={false} custom={direction}>
         <motion.div
           key={bannerImages[index]}
@@ -70,7 +71,7 @@ const Banner = () => {
       </AnimatePresence>
 
       {/* Overlay */}
-      <div className="absolute inset-0 bg-black/30 z-10 pointer-events-none" />
+      <div className="absolute inset-0  z-10 pointer-events-none" />
     </div>
   );
 };

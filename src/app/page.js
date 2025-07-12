@@ -5,6 +5,7 @@ import { useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
+import AnimatedButton from '@/utils/button';
 
 // ✅ Dynamic imports with optional fallback
 // const AboutMe = dynamic(() => import('@/Components/AboutMe'), {
@@ -30,71 +31,82 @@ const Page = () => {
   // ✅ Memoized static data
   const products = useMemo(
     () => [
+    
       {
-        name: 'Workshop',
+        name: 'CALENDARS',
+        slug: 'Calendars',
+        description:'Art-themed 2025 calendar to inspire your year.',
+          image: '/homeimages/calandars.jpeg',
+      },
+        {
+        name: 'PAINTING WORKSHOP',
         slug: 'Workshops',
         description: 'Join our hands-on creative workshop.',
-        image: '/images/workshop.jpg',
+        image: '/homeimages/workshop.jpeg',
       },
       {
-        name: 'Calendar',
-        slug: 'Calendars',
-        description: 'Art-themed 2025 calendar to inspire your year.',
-        image: '/images/calendar.jpg',
-      },
-      {
-        name: 'Paintings',
+        name: 'PAINTINGS',
         slug: 'Paintings',
         description: 'A collection of original artwork for your space.',
-        image: '/images/paintings.jpg',
+          image: '/homeimages/paintings.jpeg',
       },
     ],
     []
   );
 
   return (
-    <div className="min-h-screen bg-white space-y-12">
+    <div className="min-h-screen ">
       {/* 🔼 Sliding Carousel Banner */}
       <Banner />
 
       {/* 🔽 Product Cards */}
       <section className="bg-[#f1f1f1] px-4 py-12">
-        <h2 className="text-black text-center mb-12 text-3xl font-semibold">
-          Check out my Arts
-        </h2>
+       
         <div className="max-w-6xl mx-auto space-y-16">
-          {products.map((product, i) => (
-            <motion.div
-              key={product.name}
-              custom={i}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.2 }}
-              variants={slideUp}
-              className={`flex flex-col md:flex-row ${
-                i % 2 !== 0 ? 'md:flex-row-reverse' : ''
-              } items-center gap-10`}
-            >
-              {/* Image */}
-              <div className="w-full md:w-1/2">
-                <Link href={`/${product.slug}`}>
-                  <Image
-                    src={product.image}
-                    alt={product.name}
-                    width={600}
-                    height={400}
-                    className="w-full h-[400px] object-cover rounded-2xl shadow-lg"
-                  />
-                </Link>
-              </div>
+         {products.map((product, i) => (
+  <motion.div
+    key={product.name}
+    custom={i}
+    initial="hidden"
+    whileInView="visible"
+    viewport={{ once: true, amount: 0.2 }}
+    variants={slideUp}
+     className={`flex  md:flex-row ${i % 2 !== 0 ? 'md:flex-row-reverse' : ''} items-start md:items-center gap-6`}
+>
+    {/* Image */}
+   <div className="relative flex-1 w-[150px] h-[150px] md:w-[400px] md:h-[400px] lg:w-[500px] lg:h-[500px] overflow-hidden rounded-2xl">
+  <div className="absolute inset-0 bg-black/20 flex flex-col items-center justify-center space-y-2 text-center">
+    {/* Always visible product name */}
+    <p className="text-white text-xs md:text-3xl lg:text-5xl w-full p-2 bg-black/60">
+      {product.name}
+    </p>
 
-              {/* Text */}
-              <div className="w-full md:w-1/2 space-y-4 text-center md:text-left">
-                <h3 className="text-2xl font-bold text-gray-800">{product.name}</h3>
-                <p className="text-gray-600 text-lg">{product.description}</p>
-              </div>
-            </motion.div>
-          ))}
+    
+  </div>
+ <Image
+  src={product.image}
+  alt={product.name}
+  width={500}
+  height={500}
+  className="w-full h-full object-cover rounded-2xl shadow-lg"
+/>
+
+</div>
+
+    {/* Text */}
+    <div className="space-y-4 flex-1 flex-col">
+      <h3 className="  md:text-2xl font-bold text-gray-800">{product.name}</h3>
+      <p className=" text-sm text-gray-600">{product.description}</p>
+       <Link href={`/${product.slug}`}>
+    <AnimatedButton>
+      See More
+    </AnimatedButton>
+  </Link>
+    </div>
+    
+  </motion.div>
+))}
+
         </div>
       </section>
 

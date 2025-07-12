@@ -100,11 +100,41 @@ const scrollTo = (index) => {
 
         {/* Info Section */}
         <div className="flex  px-8 flex-col gap-4">
-          <h1 className="text-3xl md:text-3xl text-gray-700">
+          <h1 className="text-2xl md:text-3xl text-gray-700">
             {product.title}
           </h1>
-          <p className="text-gray-700 text-sm md:text-base">{product.description} Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatibus consectetur dolore hic animi ipsam ipsa omnis, delectus suscipit dolor, qui ducimus cumque. Vitae dolor unde illum iste. Assumenda, aliquam voluptatum?</p>
-          <p className="text-lg md:text-xl flex text-center items-center text-gray-600 font-bold mt-2"> <IndianRupee className="w-5 h-5" />{product.price}</p>
+          <p className="text-gray-700 text-sm md:text-base">{product.description} </p>
+          {product.aboutProduct && (
+  <div className="text-sm md:text-base text-gray-600">
+    <span className="font-semibold mr-4">Size:</span> 
+    <span className="border p-2 border-2" >
+
+    {product.aboutProduct}
+    </span>
+  </div>
+)}
+          {/* Price Section */}
+{product.offer ? (
+  <div className="flex items-center gap-2 mt-2">
+    {/* Original Price */}
+    <p className="text-gray-400 text-lg md:text-xl line-through flex items-center">
+      <IndianRupee className="w-5 h-5" />
+      {product.price}
+    </p>
+
+    {/* Discounted Price */}
+    <p className="text-green-600 text-lg md:text-xl font-bold flex items-center">
+      <IndianRupee className="w-5 h-5" />
+      {product.offer}
+    </p>
+  </div>
+) : (
+  // If no offer, show only the regular price
+  <p className="text-lg md:text-xl flex items-center text-gray-600 font-bold mt-2">
+    <IndianRupee className="w-5 h-5" />
+    {product.price}
+  </p>
+)}
 
         <AnimatedButton onClick={() => addToCart(product)}>
   Add to Cart
@@ -113,23 +143,24 @@ const scrollTo = (index) => {
         </div>
       </div>
      {zoomImage && (
-  <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 backdrop-blur-sm">
-    <div className="relative max-w-[90vw] max-h-[90vh]">
-      <Image
-        src={zoomImage}
-        alt="Zoomed Image"
-        width={1000}
-        height={800}
-        className="object-contain w-full h-full border-[5px] border-white"
-      />
-      <button
-        onClick={() => setZoomImage(null)}
-        className="absolute top-2 right-2 bg-white p-2 rounded-full shadow hover:bg-gray-100"
-      >
-        <X className="w-5 h-5 cursor-pointer text-gray-800" />
-      </button>
-    </div>
+  <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 backdrop-blur-sm overflow-auto">
+  <div className="relative max-w-[90vw] max-h-[90vh] overflow-auto">
+    <Image
+      src={zoomImage}
+      alt="Zoomed Image"
+      width={1000}
+      height={800}
+      className="object-contain w-full h-full border-[5px] border-white"
+    />
+    <button
+      onClick={() => setZoomImage(null)}
+      className="absolute top-2 right-2 bg-white p-2 rounded-full shadow hover:bg-gray-100"
+    >
+      <X className="w-5 h-5 cursor-pointer text-gray-800" />
+    </button>
   </div>
+</div>
+
 )}
 
 
